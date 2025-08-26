@@ -3,17 +3,13 @@ package com.example.todoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.google.android.material.appbar.MaterialToolbar;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.*;
@@ -21,13 +17,16 @@ import com.google.firebase.firestore.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+
+
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerTodos, recyclerToggle;
+    private RecyclerView recyclerTodos;
     private TodoAdapter todoAdapter;
-    private ToggleAdapter toggleAdapter;
     private List<Todo> todoList;
-    private List<ToggleItem> toggleList;
     private FloatingActionButton fabAdd;
 
     private FirebaseFirestore db;
@@ -41,30 +40,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Toolbar
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setTitle("NexTask");
 
         db = FirebaseFirestore.getInstance();
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            finish(); // no user logged in
+            finish();
             return;
         }
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         recyclerTodos = findViewById(R.id.recyclerTodos);
-        recyclerToggle = findViewById(R.id.recyclerToggle);
         fabAdd = findViewById(R.id.fabAddTodo);
 
         setupTodoRecyclerView();
-        setupToggleRecyclerView();
+        setupToggleLayout();
         setupAddFab();
 
-        // Load todos initially
         loadTodos();
     }
-
 
     private void setupTodoRecyclerView() {
         todoList = new ArrayList<>();
@@ -73,26 +69,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerTodos.setAdapter(todoAdapter);
     }
 
-    private void setupToggleRecyclerView() {
-        toggleList = new ArrayList<>();
-        toggleList.add(new ToggleItem("In Progress"));
-        toggleList.add(new ToggleItem("Completed"));
-
-        toggleAdapter = new ToggleAdapter(this, toggleList, position -> {
-            // Update currentStatus
+    private void setupToggleLayout() {
+        ToggleAdapter toggleAdapter = new ToggleAdapter(this, position -> {
             currentStatus = (position == 0) ? "in_progress" : "completed";
 
-            // Remove previous listener
             if (todoListener != null) todoListener.remove();
 
-            // Clear old todos
             todoList.clear();
             todoAdapter.notifyDataSetChanged();
 
-            // Load todos for new status
             loadTodos();
         });
 
+        RecyclerView recyclerToggle = findViewById(R.id.recyclerToggle);
         recyclerToggle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerToggle.setAdapter(toggleAdapter);
     }
@@ -105,46 +94,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadTodos() {
-        // Remove previous listener if exists
         if (todoListener != null) {
             todoListener.remove();
             todoListener = null;
         }
 
-        // Clear current list immediately
         todoList.clear();
         todoAdapter.notifyDataSetChanged();
 
-        // Attach new listener for current status
         todoListener = db.collection("todos")
                 .whereEqualTo("userId", userId)
                 .whereEqualTo("status", currentStatus)
                 .orderBy("title", Query.Direction.ASCENDING)
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
-                        // Log error instead of showing repeated Toast
                         Log.e("MainActivity", "Error loading todos", e);
                         return;
                     }
-
                     if (snapshots == null) return;
 
-                    // Process changes
                     for (DocumentChange dc : snapshots.getDocumentChanges()) {
                         Todo todo = dc.getDocument().toObject(Todo.class);
                         todo.setId(dc.getDocument().getId());
 
                         switch (dc.getType()) {
                             case ADDED:
-                                // Avoid duplicates
-                                boolean exists = false;
-                                for (Todo t : todoList) {
-                                    if (t.getId().equals(todo.getId())) {
-                                        exists = true;
-                                        break;
-                                    }
-                                }
-                                if (!exists) {
+                                if (!containsTodo(todo.getId())) {
                                     todoList.add(todo);
                                     todoAdapter.notifyItemInserted(todoList.size() - 1);
                                 }
@@ -178,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
     private boolean containsTodo(String id) {
         for (Todo t : todoList) {
             if (t.getId().equals(id)) return true;
@@ -187,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -195,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
-            // Handle logout
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -210,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
         if (todoListener != null) todoListener.remove();
     }
 
-    // Method to be called from AddTodoDialog to immediately add new todo
     public void addTodoToList(Todo todo) {
         if (currentStatus.equals(todo.getStatus())) {
             todoList.add(0, todo);
@@ -218,4 +190,5 @@ public class MainActivity extends AppCompatActivity {
             recyclerTodos.scrollToPosition(0);
         }
     }
+
 }

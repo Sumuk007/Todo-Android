@@ -4,6 +4,6 @@
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_surface">#FFFBFE</color>
     <color name="md_theme_onSurface">#1C1B1F</color>
-    <color name="md_outline">#79747E</color>
+    <color name="md_outline">#000000</color>
     <color name="md_error">#B3261E</color>
 </resources>

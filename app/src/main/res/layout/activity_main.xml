@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/md_theme_surface">
-
-<!-- AppBar -->
-<com.google.android.material.appbar.MaterialToolbar
-    android:id="@+id/toolbar"
-    style="@style/Widget.MaterialComponents.Toolbar.Primary"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/md_theme_onSurface"
-    android:title="My To-Do List"
-    android:layout_marginTop="40dp"
-    android:titleTextColor="@color/md_theme_onPrimary"
-    app:titleCentered="true"
-    app:layout_scrollFlags="scroll|enterAlways" />
-
-<!-- Content Container -->
-<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="40dp"
-    android:layout_marginTop="?attr/actionBarSize">
+    android:fitsSystemWindows="true"
+    android:background="@color/md_theme_surface">
 
-    <!-- Toggle Bar -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerToggle"
+    <!-- AppBar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:clipToPadding="false" />
+        android:background="@color/md_theme_onSurface"
+        android:title="@string/app_name"
+        android:fitsSystemWindows="true"
+        android:padding="0dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleCentered="true" />
 
-    <!-- Main Todos List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTodos"
+    <!-- Content Container -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="20dp"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
 
-</LinearLayout>
+        <!-- Toggle Bar -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:clipToPadding="false"
+            android:layout_marginTop="5dp"
+            android:padding="8dp" />
 
-<!-- Floating Action Button -->
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fabAddTodo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:contentDescription="Add Task"
-    android:src="@android:drawable/ic_input_add"
-    app:tint="@color/md_theme_onPrimary"
-    app:backgroundTint="@color/md_theme_onSurface"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="16dp"/>
+        <!-- Main Todos List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTodos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Add Task"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="@color/md_theme_onPrimary"
+        app:backgroundTint="@color/md_theme_onSurface"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

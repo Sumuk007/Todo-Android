@@ -7,7 +7,7 @@
     android:layout_marginBottom="12dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="12dp"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:background="@color/md_theme_onSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:id="@+id/cbCompleted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/md_theme_primary"/>
+            android:buttonTint="@color/md_theme_onPrimary"/>
 
         <TextView
             android:id="@+id/tvTask"
@@ -29,13 +29,13 @@
             android:layout_weight="1"
             android:layout_marginStart="12dp"
             android:textSize="16sp"
-            android:textColor="@color/md_theme_onSurface"
+            android:textColor="@color/md_theme_onPrimary"
             android:text="Sample Task"/>
 
         <ImageButton
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="Delete Task"
             app:tint="@color/md_error"/>

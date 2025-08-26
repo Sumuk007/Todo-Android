@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirebaseAuthDemo</string>
+    <string name="app_name">NexTodo</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -9,8 +9,9 @@
     <string name="have_account">Already have an account? </string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
-    <string name="welcome">Welcome 👋</string>
-    <string name="lets_get_started">Let’s get you in</string>
+    <string name="welcome">Welcome to NexTask</string>
+    <string name="lets_get_started">Organize your tasks easily.</string>
     <string name="create_account_title">Create your account</string>
     <string name="logout">Logout</string>
+    <string name="forgot_password">Forgot Password?</string>
 </resources>

@@ -2,124 +2,135 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/md_theme_surface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_surface"
     android:padding="24dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:text="@string/create_account_title"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/md_theme_onSurface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilRegEmail"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:hint="@string/email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRegEmail"
-            android:inputType="textEmailAddress"
-            android:imeOptions="actionNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilRegPassword"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:hint="@string/password"
-        app:endIconMode="password_toggle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tilRegEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRegPassword"
-            android:inputType="textPassword"
-            android:imeOptions="actionNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilRegConfirmPassword"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:hint="@string/confirm_password"
-        app:endIconMode="password_toggle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tilRegPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRegConfirmPassword"
-            android:inputType="textPassword"
-            android:imeOptions="actionDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        style="@style/Widget.Material3.Button"
-        android:text="@string/register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cornerRadius="28dp"
-        app:layout_constraintTop_toBottomOf="@id/tilRegConfirmPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress"
-        android:visibility="gone"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:layout_constraintTop_toBottomOf="@id/btnRegister"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
-
     <LinearLayout
-        android:id="@+id/llToLogin"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
 
+        <!-- Title -->
         <TextView
-            android:text="@string/have_account"
-            android:textColor="@color/md_outline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tvSignIn"
-            android:text="@string/sign_in"
+            android:id="@+id/tvTitle"
+            android:text="@string/create_account_title"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onSurface"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Email Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegEmail"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="@string/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRegEmail"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/md_theme_onSurface"
+                android:imeOptions="actionNext"
+                android:textColorHint="@color/md_outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegPassword"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="@string/password"
+            app:endIconMode="password_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRegPassword"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:textColorHint="@color/md_outline"
+                android:textColor="@color/md_theme_onSurface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Confirm Password Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegConfirmPassword"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="@string/confirm_password"
+            app:endIconMode="password_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etRegConfirmPassword"
+                android:inputType="textPassword"
+                android:textColor="@color/md_theme_onSurface"
+                android:imeOptions="actionDone"
+                android:textColorHint="@color/md_outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Register Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/Widget.Material3.Button"
+            android:text="@string/register"
+            android:textColor="@color/md_theme_surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cornerRadius="28dp"
+            android:backgroundTint="@color/md_theme_onSurface"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Progress Indicator -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Link to Login -->
+        <LinearLayout
+            android:id="@+id/llToLogin"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:text="@string/have_account"
+                android:textColor="@color/md_outline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:text="@string/sign_in"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
